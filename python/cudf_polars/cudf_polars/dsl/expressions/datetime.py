@@ -9,9 +9,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, ClassVar
 
 import pyarrow as pa
-import pylibcudf as plc
 
 from polars.polars import _expr_nodes as pl_expr
+
+import pylibcudf as plc
 
 from cudf_polars.containers import Column
 from cudf_polars.dsl.expressions.base import ExecutionContext, Expr
@@ -26,7 +27,9 @@ __all__ = ["TemporalFunction"]
 
 class TemporalFunction(Expr):
     __slots__ = ("name", "options")
-    _COMPONENT_MAP: ClassVar[dict[pl_expr.TemporalFunction, str]] = {
+    _COMPONENT_MAP: ClassVar[
+        dict[pl_expr.TemporalFunction, plc.datetime.DatetimeComponent]
+    ] = {
         pl_expr.TemporalFunction.Year: plc.datetime.DatetimeComponent.YEAR,
         pl_expr.TemporalFunction.Month: plc.datetime.DatetimeComponent.MONTH,
         pl_expr.TemporalFunction.Day: plc.datetime.DatetimeComponent.DAY,
